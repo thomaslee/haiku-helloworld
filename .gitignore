@@ -1,0 +1,11 @@
+.deps
+Makefile
+*.log
+*.status
+/helloworld
+*.o
+*.lo
+*.so
+*.exe
+*.la
+*.a
