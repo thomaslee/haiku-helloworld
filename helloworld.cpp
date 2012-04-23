@@ -1,5 +1,4 @@
 #include <Application.h>
-#include <StringView.h>
 #include <Window.h>
 
 class MainWindow : public BWindow
@@ -7,10 +6,14 @@ class MainWindow : public BWindow
 	public:
 		MainWindow();
 		virtual ~MainWindow();
+		
+	protected:
+		void MessageReceived(BMessage *msg);
 };
 
 MainWindow::MainWindow()
-	: BWindow(BRect(0, 0, 320, 200), "Hello World", B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+	: BWindow(BRect(50, 50, 320, 200), "Hello World",
+		B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS | B_QUIT_ON_WINDOW_CLOSE)
 {
 }
 
@@ -18,23 +21,21 @@ MainWindow::~MainWindow()
 {
 }
 
-class App : public BApplication
+void
+MainWindow::MessageReceived(BMessage *msg)
 {
-	public:
-		App();
-};
-
-App::App()
-	: BApplication("application/x-vnd.tomlee-helloworld")
-{
-	MainWindow *main_window = new MainWindow();
-	main_window->Show();
+	
 }
 
 int
 main(int argc, char **argv)
 {
-	App *app = new App();
+	BApplication *app =
+		new BApplication("application/x-vnd.example-helloworld");
+		
+	MainWindow *window = new MainWindow();
+	window->Show();
+	
 	app->Run();
 	delete app;
 	
